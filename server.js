@@ -200,6 +200,12 @@ app.post("/api/resume/upload", upload.single("resume"), async (req, res) => {
         }
       }
     }
+
+    // cleanup temp file
+    fs.unlink(filePath, (err) => {
+      if (err) console.warn("Failed to delete temp file:", err);
+      else console.log("Temp file deleted:", filePath);
+    });
     // respond
     return res.json({
       message: "Uploaded successfully",
